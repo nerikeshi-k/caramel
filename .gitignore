@@ -1,5 +1,6 @@
 node_modules
 .vscode
+bin/*
 tmp/*
 *.log
 yarn-error.log*

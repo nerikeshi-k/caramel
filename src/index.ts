@@ -1,4 +1,4 @@
-import express from 'express';
+import express = require('express');
 import { renderImage } from './renderer';
 
 const app = express();
