@@ -3,6 +3,8 @@ import { renderImage } from './renderer';
 
 const app = express();
 
+const PORT = process.env.CARAMEL_PORT || 3000;
+
 interface Query {
   title: string;
   body: string;
@@ -31,4 +33,4 @@ app.get('/', function(req, res) {
   res.type('png').send(renderImage(query.title, query.body));
 });
 
-app.listen(3000, () => console.log('caramel is running🌟'));
+app.listen(PORT, () => console.log(`caramel is running on 0.0.0.0:${PORT}🌟`));
