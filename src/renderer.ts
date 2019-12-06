@@ -119,15 +119,14 @@ export const renderImage = (title: string, body: string, option?: Partial<Option
   );
 
   // サイト名
-  const siteNameYMargin = 5;
   ctx.fillStyle = siteNameStyle.backgroundColor;
-  ctx.fillRect(0, 0, size.width, siteNameStyle.lineHeight + siteNameYMargin);
+  ctx.fillRect(0, 0, size.width, siteNameStyle.lineHeight);
 
   ctx.fillStyle = siteNameStyle.color;
   ctx.font = siteNameStyle.font;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'left';
-  ctx.fillText('お題ガチャ', size.width * 0.02, siteNameStyle.lineHeight / 2 + siteNameYMargin);
+  ctx.fillText('お題ガチャ', size.width * 0.02, siteNameStyle.lineHeight / 2);
 
   // タイトル描画
   ctx.fillStyle = titleStyle.color;
