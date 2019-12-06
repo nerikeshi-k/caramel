@@ -7,6 +7,10 @@ interface Option {
   };
   canvasStyle: {
     backgroundColor: string;
+    border: {
+      color: string;
+      width: number;
+    };
     padding: {
       horizontal: number;
       betweenTitleAndBody: number;
@@ -14,7 +18,9 @@ interface Option {
   };
   siteNameStyle: {
     font: string;
+    lineHeight: number;
     color: string;
+    backgroundColor: string;
   };
   titleStyle: {
     font: string;
@@ -25,43 +31,64 @@ interface Option {
     font: string;
     lineHeight: number;
     color: string;
-    marginTop: number;
   };
   dividerLineStyle: {
     lineWidth: number;
     color: string;
   };
+  buttonStyle: {
+    w: number;
+    h: number;
+    radius: number;
+    backgroundColor: string;
+    textColor: string;
+    font: string;
+  }
 }
 
-const DEFAULT_OPTION = {
+const DEFAULT_OPTION: Option = {
   size: {
     width: 1200,
     height: 630
   },
   canvasStyle: {
-    backgroundColor: '#50c7a8',
+    backgroundColor: '#ffffff',
+    border: {
+      color: '#333',
+      width: 4
+    },
     padding: {
       horizontal: 80,
-      betweenTitleAndBody: 60
+      betweenTitleAndBody: 90
     }
   },
   siteNameStyle: {
-    font: 'bold 20px "Noto Sans CJK JP"',
-    color: '#ffffff'
+    font: '28px "Noto Sans CJK JP"',
+    lineHeight: 60,
+    color: '#fff',
+    backgroundColor: '#333'
   },
   titleStyle: {
     font: 'bold 70px "Noto Sans CJK JP"',
     lineHeight: 80,
-    color: '#ffffff'
+    color: '#333'
   },
   bodyStyle: {
-    font: '32px "Noto Sans CJK JP"',
+    font: '34px "Noto Sans CJK JP"',
     lineHeight: 38,
-    color: '#eeeeee'
+    color: '#333'
   },
   dividerLineStyle: {
-    lineWidth: 2,
-    color: '#cccccc'
+    lineWidth: 4,
+    color: '#333'
+  },
+  buttonStyle: {
+    w: 400,
+    h: 80,
+    radius: 20,
+    backgroundColor: '#50c7a8',
+    textColor: '#fff',
+    font: 'bold 34px "Noto Sans CJK JP"'
   }
 };
 
@@ -72,29 +99,41 @@ export const renderImage = (title: string, body: string, option?: Partial<Option
     siteNameStyle = DEFAULT_OPTION.siteNameStyle,
     titleStyle = DEFAULT_OPTION.titleStyle,
     bodyStyle = DEFAULT_OPTION.bodyStyle,
-    dividerLineStyle = DEFAULT_OPTION.dividerLineStyle
+    dividerLineStyle = DEFAULT_OPTION.dividerLineStyle,
+    buttonStyle = DEFAULT_OPTION.buttonStyle
   } = option || DEFAULT_OPTION;
 
   const canvas = createCanvas(size.width, size.height);
   const ctx = canvas.getContext('2d');
 
-  // 背景描画
-  ctx.fillStyle = canvasStyle.backgroundColor;
+  // 背景＆枠描画
+  ctx.fillStyle = canvasStyle.border.color;
   ctx.fillRect(0, 0, size.width, size.height);
 
+  ctx.fillStyle = canvasStyle.backgroundColor;
+  ctx.fillRect(
+    canvasStyle.border.width,
+    canvasStyle.border.width,
+    size.width - canvasStyle.border.width * 2,
+    size.height - canvasStyle.border.width * 2
+  );
+
   // サイト名
+  ctx.fillStyle = siteNameStyle.backgroundColor;
+  ctx.fillRect(0, 0, size.width, siteNameStyle.lineHeight);
+
   ctx.fillStyle = siteNameStyle.color;
   ctx.font = siteNameStyle.font;
   ctx.textBaseline = 'middle';
-  ctx.textAlign = 'end';
-  ctx.fillText('お題メーカー', size.width * 0.95, size.height * 0.95);
+  ctx.textAlign = 'left';
+  ctx.fillText('お題ガチャ', size.width * 0.05, siteNameStyle.lineHeight / 2);
 
   // タイトル描画
   ctx.fillStyle = titleStyle.color;
   ctx.font = titleStyle.font;
   ctx.textBaseline = 'bottom';
   ctx.textAlign = 'center';
-  const titleBaseLine = size.height * 0.46;
+  const titleBaseLine = size.height * 0.4;
   const titleLines = createWrappedTextlines(title, size.width - canvasStyle.padding.horizontal * 2, ctx);
   titleLines
     .slice()
@@ -125,6 +164,29 @@ export const renderImage = (title: string, body: string, option?: Partial<Option
     ctx.fillText(line, size.width / 2, height);
   });
 
+  // ボタン描画
+  {
+    ctx.beginPath();
+    ctx.fillStyle = '#50c7a8';
+    ctx.setLineDash([]);
+    const yBaseline = size.height * 0.8;
+    const { w, h } = buttonStyle;
+    const x = size.width / 2 - w / 2;
+    const y = yBaseline - h / 2;
+    const r = buttonStyle.radius;
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.fill();
+
+    ctx.fillStyle = buttonStyle.textColor;
+    ctx.font = buttonStyle.font;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('ガチャを回す', size.width / 2, yBaseline);
+  }
   return canvas.toBuffer('image/png');
 };
 

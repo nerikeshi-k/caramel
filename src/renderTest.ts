@@ -14,7 +14,7 @@ fs.writeFileSync(
   )
 );
 fs.writeFileSync(
-  './emoji.png',
+  path.join(__dirname, '../tmp/emoji.png'),
   renderImage('こんにちは🎉✨✨', '☺☺こんばんはこんばんは🎉✨✨こんばんはこんばんは🎉✨✨')
 );
 
