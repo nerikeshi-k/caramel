@@ -58,12 +58,12 @@ const DEFAULT_OPTION: Option = {
       width: 4
     },
     padding: {
-      horizontal: 80,
-      betweenTitleAndBody: 90
+      horizontal: 40,
+      betweenTitleAndBody: 40
     }
   },
   siteNameStyle: {
-    font: '28px "Noto Sans CJK JP"',
+    font: 'bold 28px "Noto Sans CJK JP"',
     lineHeight: 60,
     color: '#fff',
     backgroundColor: '#333'
@@ -74,7 +74,7 @@ const DEFAULT_OPTION: Option = {
     color: '#333'
   },
   bodyStyle: {
-    font: '34px "Noto Sans CJK JP"',
+    font: '30px "Noto Sans CJK JP"',
     lineHeight: 38,
     color: '#333'
   },
@@ -83,9 +83,9 @@ const DEFAULT_OPTION: Option = {
     color: '#333'
   },
   buttonStyle: {
-    w: 400,
-    h: 80,
-    radius: 20,
+    w: 440,
+    h: 100,
+    radius: 25,
     backgroundColor: '#50c7a8',
     textColor: '#fff',
     font: 'bold 34px "Noto Sans CJK JP"'
@@ -119,21 +119,22 @@ export const renderImage = (title: string, body: string, option?: Partial<Option
   );
 
   // サイト名
+  const siteNameYMargin = 5;
   ctx.fillStyle = siteNameStyle.backgroundColor;
-  ctx.fillRect(0, 0, size.width, siteNameStyle.lineHeight);
+  ctx.fillRect(0, 0, size.width, siteNameStyle.lineHeight + siteNameYMargin);
 
   ctx.fillStyle = siteNameStyle.color;
   ctx.font = siteNameStyle.font;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'left';
-  ctx.fillText('お題ガチャ', size.width * 0.05, siteNameStyle.lineHeight / 2);
+  ctx.fillText('お題ガチャ', size.width * 0.02, siteNameStyle.lineHeight / 2 + siteNameYMargin);
 
   // タイトル描画
   ctx.fillStyle = titleStyle.color;
   ctx.font = titleStyle.font;
   ctx.textBaseline = 'bottom';
   ctx.textAlign = 'center';
-  const titleBaseLine = size.height * 0.4;
+  const titleBaseLine = size.height * 0.45;
   const titleLines = createWrappedTextlines(title, size.width - canvasStyle.padding.horizontal * 2, ctx);
   titleLines
     .slice()
