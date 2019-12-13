@@ -88,7 +88,7 @@ const DEFAULT_OPTION: Option = {
     radius: 25,
     backgroundColor: '#50c7a8',
     textColor: '#fff',
-    font: 'bold 34px "Noto Sans CJK JP"'
+    font: 'bold 40px "Noto Sans CJK JP"'
   }
 };
 
