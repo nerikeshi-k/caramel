@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { renderImage } from './renderer';
+import { renderImage } from '../src/renderer';
 
 fs.writeFileSync(
   path.join(__dirname, '../tmp/normal.png'),

@@ -11,11 +11,11 @@ interface Query {
 }
 
 const extractQuery = (req: express.Request): Query | null => {
-  if (req.query.title != null && req.query.body != null) {
+  if (typeof req.query.title === 'string' && typeof req.query.body === 'string') {
     try {
       return {
         title: decodeURIComponent(req.query.title),
-        body: decodeURIComponent(req.query.body)
+        body: decodeURIComponent(req.query.body),
       };
     } catch (e) {
       return null;
@@ -24,7 +24,7 @@ const extractQuery = (req: express.Request): Query | null => {
   return null;
 };
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   const query = extractQuery(req);
   if (query == null) {
     res.status(400).send('');

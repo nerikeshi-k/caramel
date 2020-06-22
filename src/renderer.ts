@@ -43,53 +43,53 @@ interface Option {
     backgroundColor: string;
     textColor: string;
     font: string;
-  }
+  };
 }
 
 const DEFAULT_OPTION: Option = {
   size: {
     width: 1200,
-    height: 630
+    height: 630,
   },
   canvasStyle: {
     backgroundColor: '#ffffff',
     border: {
       color: '#333',
-      width: 4
+      width: 4,
     },
     padding: {
       horizontal: 40,
-      betweenTitleAndBody: 40
-    }
+      betweenTitleAndBody: 40,
+    },
   },
   siteNameStyle: {
-    font: 'bold 28px "Noto Sans CJK JP"',
+    font: '28px "Noto Sans CJK JP"',
     lineHeight: 60,
     color: '#fff',
-    backgroundColor: '#333'
+    backgroundColor: '#333',
   },
   titleStyle: {
     font: 'bold 70px "Noto Sans CJK JP"',
     lineHeight: 80,
-    color: '#333'
+    color: '#333',
   },
   bodyStyle: {
     font: '30px "Noto Sans CJK JP"',
     lineHeight: 38,
-    color: '#333'
+    color: '#333',
   },
   dividerLineStyle: {
     lineWidth: 4,
-    color: '#333'
+    color: '#333',
   },
   buttonStyle: {
     w: 440,
     h: 100,
-    radius: 25,
-    backgroundColor: '#50c7a8',
+    radius: 5,
+    backgroundColor: '#294470',
     textColor: '#fff',
-    font: 'bold 40px "Noto Sans CJK JP"'
-  }
+    font: 'bold 40px "Noto Sans CJK JP"',
+  },
 };
 
 export const renderImage = (title: string, body: string, option?: Partial<Option>) => {
@@ -100,7 +100,7 @@ export const renderImage = (title: string, body: string, option?: Partial<Option
     titleStyle = DEFAULT_OPTION.titleStyle,
     bodyStyle = DEFAULT_OPTION.bodyStyle,
     dividerLineStyle = DEFAULT_OPTION.dividerLineStyle,
-    buttonStyle = DEFAULT_OPTION.buttonStyle
+    buttonStyle = DEFAULT_OPTION.buttonStyle,
   } = option || DEFAULT_OPTION;
 
   const canvas = createCanvas(size.width, size.height);
@@ -167,7 +167,7 @@ export const renderImage = (title: string, body: string, option?: Partial<Option
   // ボタン描画
   {
     ctx.beginPath();
-    ctx.fillStyle = '#50c7a8';
+    ctx.fillStyle = buttonStyle.backgroundColor;
     ctx.setLineDash([]);
     const yBaseline = size.height * 0.8;
     const { w, h } = buttonStyle;
