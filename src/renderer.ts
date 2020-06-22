@@ -133,7 +133,7 @@ export const renderImage = (title: string, body: string, option?: Partial<Option
   ctx.font = titleStyle.font;
   ctx.textBaseline = 'bottom';
   ctx.textAlign = 'center';
-  const titleBaseLine = size.height * 0.45;
+  const titleBaseLine = size.height * 0.4;
   const titleLines = createWrappedTextlines(title, size.width - canvasStyle.padding.horizontal * 2, ctx);
   titleLines
     .slice()
